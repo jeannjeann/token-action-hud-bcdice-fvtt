@@ -1,6 +1,6 @@
 {
   "tokenActionHud": {
-    "template": {
+    "bcdice": {
       "armor": "Armor",
       "containers": "Containers",
       "consumables": "Consumables",
