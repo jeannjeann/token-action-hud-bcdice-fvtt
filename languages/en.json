@@ -1,8 +1,8 @@
 {
   "tokenActionHud": {
     "bcdice": {
-      "macro": "Command",
-      "replacement": "Replacement",
+      "macro": "Command List",
+      "replacement": "Edit Replacement",
       "bcdmacro": "Command",
       "bcdreplacement": "Replacement",
       "settings": {

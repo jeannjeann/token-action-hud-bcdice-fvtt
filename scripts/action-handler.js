@@ -91,7 +91,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
             let name = text[1] || text[0];
             let command = text[0];
             let id = `group${j}-macro${k}`;
-            let encodedValue = [actionTypeId, id].join(this.delimiter);
+            let encodedValue = [actionTypeId, `${macro}`].join(this.delimiter);
             let listName = `${actionTypeName}: ${name}`;
             let tooltip = `${command}`;
             actions.push({ id, name, encodedValue, listName, tooltip });
@@ -129,10 +129,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         let name = replacements[i].replace(/^:/, "").replace(/=.*/, "");
         let command = replacements[i];
         let id = `replacement${i}`;
-        let encodedValue = [actionTypeId, id].join(this.delimiter);
+        let encodedValue = [actionTypeId, `${command}`].join(this.delimiter);
         let listName = `${actionTypeName}: ${name}`;
         let tooltip = `${command}`;
-        actions.push({ id, name, encodedValue, listName, tooltip });
+        if (name) actions.push({ id, name, encodedValue, listName, tooltip });
       }
       this.addActions(actions, groupData);
     }

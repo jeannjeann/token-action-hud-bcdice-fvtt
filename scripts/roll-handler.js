@@ -13,25 +13,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {string} encodedValue The encoded value
      */
     async handleActionClick(event, encodedValue) {
-      //
-      let message = "/bcd :魔力修正";
-
-      // チャットログのテキストエリアにメッセージをセット
-      let textarea = ui.chat.element.find("textarea")[0];
-      textarea.value = message;
-
-      // カーソルを末尾に移動させ、フォーカスを入力欄に移動
-      textarea.focus();
-      textarea.setSelectionRange(message.length, message.length);
-
       const [actionTypeId, actionId] = encodedValue.split("|");
-
-      const renderable = ["item"];
-
-      if (renderable.includes(actionTypeId) && this.isRenderItem()) {
-        return this.doRenderItem(this.actor, actionId);
-      }
-
       const knownCharacters = ["character"];
 
       // If single actor is selected
@@ -86,8 +68,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     async #handleAction(event, actor, token, actionTypeId, actionId) {
       switch (actionTypeId) {
-        case "item":
-          this.#handleItemAction(event, actor, actionId);
+        case "bcdmacro":
+          this.#handleMacroAction(event, actor, actionId);
+          break;
+        case "bcdreplacement":
+          this.#handleReplacementAction(event, actor, actionId);
           break;
         case "utility":
           this.#handleUtilityAction(token, actionId);
@@ -96,15 +81,49 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
-     * Handle item action
+     * Handle BCDice Macro action
      * @private
      * @param {object} event    The event
      * @param {object} actor    The actor
      * @param {string} actionId The action id
      */
-    #handleItemAction(event, actor, actionId) {
-      const item = actor.items.get(actionId);
-      item.toChat(event);
+    #handleMacroAction(event, actor, actionId) {
+      const isRightClick = this.isRightClick(event);
+      if (!isRightClick) {
+        game.modules
+          .get("fvtt-bcdice-addon")
+          .api.customCommand("/bcd", "", `${actionId}`);
+      } else {
+        let message = `/bcd ${actionId}`;
+        let textarea = ui.chat.element.find("textarea")[0];
+        textarea.value = message;
+        textarea.focus();
+        textarea.setSelectionRange(message.length, message.length);
+      }
+    }
+
+    /**
+     * Handle BCDice Replacement action
+     * @private
+     * @param {object} event    The event
+     * @param {object} actor    The actor
+     * @param {string} actionId The action id
+     */
+    #handleReplacementAction(event, actor, actionId) {
+      const isRightClick = this.isRightClick(event);
+      if (!isRightClick) {
+        let message = `/bcd ${actionId.replace(/=.*/, "")}`;
+        let textarea = ui.chat.element.find("textarea")[0];
+        textarea.value = message;
+        textarea.focus();
+        textarea.setSelectionRange(message.length, message.length);
+      } else {
+        let message = `/bcd ${actionId}`;
+        let textarea = ui.chat.element.find("textarea")[0];
+        textarea.value = message;
+        textarea.focus();
+        textarea.setSelectionRange(message.length, message.length);
+      }
     }
 
     /**

@@ -17,6 +17,8 @@ Token Action HUD for [BCDice for Foundry VTT](https://foundryvtt.com/packages/fv
 カスタムのススメとレイアウトの保存
 コマンド内の変数操作関連は変数の方にあるので不要
 そのまま出力するタイプのはボタン名がうまく取得できない可能性が高いので不要、想定していない
+右クリックでコマンドをそのままチャット入力欄に送信
+全部のタブをまとめるので整理は手動で
 
 # サポート (Support)
 

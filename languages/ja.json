@@ -1,8 +1,8 @@
 {
   "tokenActionHud": {
     "bcdice": {
-      "macro": "コマンド",
-      "replacement": "変数",
+      "macro": "コマンド一覧",
+      "replacement": "変数操作",
       "bcdmacro": "コマンド",
       "bcdreplacement": "変数",
       "settings": {
