@@ -13,6 +13,10 @@
         "displayUnequipped": {
           "hint": "Choose whether to display unequipped items on the HUD",
           "name": "Display Unequipped"
+        },
+        "useTab": {
+          "hint": "オン：タブを最初の階層のグループとして分類する。オフ：最初のタブのみ使用し、最初の階層はカテゴリーで分類する。",
+          "name": "タブを使用する"
         }
       }
     }

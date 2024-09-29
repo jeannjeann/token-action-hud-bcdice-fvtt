@@ -84,7 +84,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           class: "tah-style-bcdice-style", // The class to add to first DIV element
           file: "tah-bcdice-style", // The file without the css extension
           moduleId: MODULE.ID, // The module ID
-          name: "bcdice Style", // The name to display in the Token Action HUD Core 'Style' module setting
+          name: "BCDice Style", // The name to display in the Token Action HUD Core 'Style' module setting
         },
       };
     }

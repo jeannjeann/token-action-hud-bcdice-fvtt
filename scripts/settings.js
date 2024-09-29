@@ -21,4 +21,15 @@ export function register(coreUpdate) {
       coreUpdate(value);
     },
   });
+  game.settings.register(MODULE.ID, "useTab", {
+    name: game.i18n.localize("tokenActionHud.bcdice.settings.useTab.name"),
+    hint: game.i18n.localize("tokenActionHud.bcdice.settings.useTab.hint"),
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: (value) => {
+      coreUpdate(value);
+    },
+  });
 }
