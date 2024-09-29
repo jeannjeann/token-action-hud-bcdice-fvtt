@@ -17,16 +17,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
   DEFAULTS = {
     layout: [
       {
-        nestId: "inventory",
-        id: "inventory",
-        name: coreModule.api.Utils.i18n("bcdice.Inventory"),
+        nestId: "macros",
+        id: "macros",
+        name: coreModule.api.Utils.i18n("tokenActionHud.bcdice.macro"),
+        groups: [{ ...groups.bcdmacros, nestId: "macros_bcdmacros" }],
+      },
+      {
+        nestId: "replacements",
+        id: "replacements",
+        name: coreModule.api.Utils.i18n("tokenActionHud.bcdice.replacement"),
         groups: [
-          { ...groups.weapons, nestId: "inventory_weapons" },
-          { ...groups.armor, nestId: "inventory_armor" },
-          { ...groups.equipment, nestId: "inventory_equipment" },
-          { ...groups.consumables, nestId: "inventory_consumables" },
-          { ...groups.containers, nestId: "inventory_containers" },
-          { ...groups.treasure, nestId: "inventory_treasure" },
+          { ...groups.bcdreplacements, nestId: "replacements_bcdreplacements" },
         ],
       },
       {
@@ -34,9 +35,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         id: "utility",
         name: coreModule.api.Utils.i18n("tokenActionHud.utility"),
         groups: [
-          //{ ...groups.combat, nestId: "utility_combat" },
           { ...groups.token, nestId: "utility_token" },
-          //{ ...groups.rests, nestId: "utility_rests" },
           { ...groups.utility, nestId: "utility_utility" },
         ],
       },

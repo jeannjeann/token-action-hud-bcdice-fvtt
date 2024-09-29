@@ -21,7 +21,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.actorType = this.actor?.type;
 
       // Settings
-      //this.displayUnequipped = Utils.getSetting("displayUnequipped");
+      this.ignoreCategory = Utils.getSetting("ignoreCategory");
+
+      // Get BCDice Data
+      this.bcdiceData = await game.modules
+        .get("fvtt-bcdice-addon")
+        .api.getDataForCurrentEntity();
 
       // Set items variable
       if (this.actor) {
@@ -108,6 +113,34 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       }
     }
 
-    async #buildMacro() {}
+    /**
+     * Build BCDice Macro
+     * @private
+     */
+    async #buildMacro() {
+      const testGroupData = {
+        id: "test-group",
+        name: "test group",
+        type: "system",
+      };
+      const testParentGroupData = {
+        id: "weapons",
+        type: "system",
+      };
+
+      this.addGroup(testGroupData, testParentGroupData, true);
+
+      console.log(this.bcdiceData);
+
+      let message = "/bcd :魔力修正";
+
+      // チャットログのテキストエリアにメッセージをセット
+      let textarea = ui.chat.element.find("textarea")[0];
+      textarea.value = message;
+
+      // カーソルを末尾に移動させ、フォーカスを入力欄に移動
+      textarea.focus();
+      textarea.setSelectionRange(message.length, message.length);
+    }
   };
 });

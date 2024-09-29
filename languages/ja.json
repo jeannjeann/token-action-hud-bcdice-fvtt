@@ -1,22 +1,14 @@
 {
   "tokenActionHud": {
     "bcdice": {
-      "armor": "Armor",
-      "containers": "Containers",
-      "consumables": "Consumables",
-      "equipment": "Equipment",
-      "inventory": "Inventory",
-      "item": "Item",
-      "weapons": "Weapons",
-      "treasure": "Treasure",
+      "macro": "コマンド",
+      "replacement": "変数",
+      "bcdmacro": "コマンド",
+      "bcdreplacement": "変数",
       "settings": {
-        "displayUnequipped": {
-          "hint": "Choose whether to display unequipped items on the HUD",
-          "name": "Display Unequipped"
-        },
-        "useTab": {
-          "hint": "オン：タブを最初の階層のグループとして分類する。オフ：最初のタブのみ使用し、最初の階層はカテゴリーで分類する。",
-          "name": "タブを使用する"
+        "ignoreCategory": {
+          "hint": "オフ：BCDiceで設定されているカテゴリー毎にグループ化する。オン：カテゴリーを無視してまとめて表示する。（デフォルト：オフ）",
+          "name": "カテゴリーを無視する"
         }
       }
     }

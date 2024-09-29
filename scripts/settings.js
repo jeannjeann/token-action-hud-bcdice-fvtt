@@ -6,24 +6,13 @@ import { MODULE } from "./constants.js";
  * @param {function} coreUpdate Token Action HUD Core update function
  */
 export function register(coreUpdate) {
-  game.settings.register(MODULE.ID, "displayUnequipped", {
+  game.settings.register(MODULE.ID, "ignoreCategory", {
     name: game.i18n.localize(
-      "tokenActionHud.bcdice.settings.displayUnequipped.name"
+      "tokenActionHud.bcdice.settings.ignoreCategory.name"
     ),
     hint: game.i18n.localize(
-      "tokenActionHud.bcdice.settings.displayUnequipped.hint"
+      "tokenActionHud.bcdice.settings.ignoreCategory.hint"
     ),
-    scope: "client",
-    config: true,
-    type: Boolean,
-    default: true,
-    onChange: (value) => {
-      coreUpdate(value);
-    },
-  });
-  game.settings.register(MODULE.ID, "useTab", {
-    name: game.i18n.localize("tokenActionHud.bcdice.settings.useTab.name"),
-    hint: game.i18n.localize("tokenActionHud.bcdice.settings.useTab.hint"),
     scope: "client",
     config: true,
     type: Boolean,
