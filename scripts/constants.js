@@ -34,11 +34,13 @@ export const GROUP = {
     id: "bcdmacros",
     name: "tokenActionHud.bcdice.bcdmacro",
     type: "system",
+    settings: { showTitle: false },
   },
   bcdreplacements: {
     id: "bcdreplacements",
     name: "tokenActionHud.bcdice.bcdreplacement",
     type: "system",
+    settings: { showTitle: false },
   },
   token: { id: "token", name: "tokenActionHud.token", type: "system" },
   utility: { id: "utility", name: "tokenActionHud.utility", type: "system" },

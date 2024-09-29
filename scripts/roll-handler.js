@@ -13,6 +13,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {string} encodedValue The encoded value
      */
     async handleActionClick(event, encodedValue) {
+      //
+      let message = "/bcd :魔力修正";
+
+      // チャットログのテキストエリアにメッセージをセット
+      let textarea = ui.chat.element.find("textarea")[0];
+      textarea.value = message;
+
+      // カーソルを末尾に移動させ、フォーカスを入力欄に移動
+      textarea.focus();
+      textarea.setSelectionRange(message.length, message.length);
+
       const [actionTypeId, actionId] = encodedValue.split("|");
 
       const renderable = ["item"];

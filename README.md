@@ -10,6 +10,14 @@ Token Action HUD for [BCDice for Foundry VTT](https://foundryvtt.com/packages/fv
 
 **IMPORTANT** - Token Action HUD BCDice requires the [Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core) and [BCDice for Foundry VTT](https://foundryvtt.com/packages/fvtt-bcdice-addon) module to be installed.
 
+## 使い方
+**注意** - 個別システム用の「Token Action HUD」システムモジュールがある場合、どちらか一方のみ使用してください。併用時の挙動は検証していません。
+変数はチャット欄へ
+カテゴリーの設定と挙動
+カスタムのススメとレイアウトの保存
+コマンド内の変数操作関連は変数の方にあるので不要
+そのまま出力するタイプのはボタン名がうまく取得できない可能性が高いので不要、想定していない
+
 # サポート (Support)
 
 「Token Action HUD」の使い方　[How to Use Token Action HUD (英語サイト)](https://github.com/Larkinabout/fvtt-token-action-hud-core/wiki/How-to-Use-Token-Action-HUD)

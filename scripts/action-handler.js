@@ -47,8 +47,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @private
      */
     #buildCharacterActions() {
-      this.#buildInventory();
       this.#buildMacro();
+      this.#buildReplacement();
     }
 
     /**
@@ -59,88 +59,82 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     #buildMultipleTokenActions() {}
 
     /**
-     * Build inventory
-     * @private
-     */
-    async #buildInventory() {
-      if (this.items.size === 0) return;
-
-      const actionTypeId = "item";
-      const inventoryMap = new Map();
-
-      for (const [itemId, itemData] of this.items) {
-        const type = itemData.type;
-        const equipped = itemData.equipped;
-
-        /*
-        if (equipped || this.displayUnequipped) {
-          const typeMap = inventoryMap.get(type) ?? new Map();
-          typeMap.set(itemId, itemData);
-          inventoryMap.set(type, typeMap);
-        }
-        */
-      }
-
-      for (const [type, typeMap] of inventoryMap) {
-        const groupId = ITEM_TYPE[type]?.groupId;
-
-        if (!groupId) continue;
-
-        const groupData = { id: groupId, type: "system" };
-
-        // Get actions
-        const actions = [...typeMap].map(([itemId, itemData]) => {
-          const id = itemId;
-          const name = itemData.name;
-          const actionTypeName = coreModule.api.Utils.i18n(
-            ACTION_TYPE[actionTypeId]
-          );
-          const listName = `${
-            actionTypeName ? `${actionTypeName}: ` : ""
-          }${name}`;
-          const encodedValue = [actionTypeId, id].join(this.delimiter);
-
-          return {
-            id,
-            name,
-            listName,
-            encodedValue,
-          };
-        });
-
-        // TAH Core method to add actions to the action list
-        this.addActions(actions, groupData);
-      }
-    }
-
-    /**
      * Build BCDice Macro
      * @private
      */
     async #buildMacro() {
-      const testGroupData = {
-        id: "test-group",
-        name: "test group",
-        type: "system",
-      };
-      const testParentGroupData = {
-        id: "weapons",
-        type: "system",
-      };
+      const actionTypeId = "bcdmacro";
+      const actionTypeName = coreModule.api.Utils.i18n(
+        ACTION_TYPE[actionTypeId]
+      );
 
-      this.addGroup(testGroupData, testParentGroupData, true);
+      const groupId = ITEM_TYPE[actionTypeId]?.groupId;
+      const rootGroupData = { id: groupId, type: "system" };
 
-      console.log(this.bcdiceData);
+      // add groups and actions
+      for (let i = 0; i < this.bcdiceData.tabs.length; i++) {
+        const category = this.bcdiceData.tabs[i].headers;
 
-      let message = "/bcd :魔力修正";
+        for (let j = 0; j < category.length; j++) {
+          const actions = [];
+          const categoryGroupData = {
+            id: `group${j}`,
+            name: category[j].name,
+            type: "system-derived",
+          };
+          if (!this.ignoreCategory)
+            this.addGroup(categoryGroupData, rootGroupData);
 
-      // チャットログのテキストエリアにメッセージをセット
-      let textarea = ui.chat.element.find("textarea")[0];
-      textarea.value = message;
+          for (let k = 0; k < category[j].macros.length; k++) {
+            const macro = category[j].macros[k].macro;
+            let text = macro.split(/[\s\u3000]+/);
+            let name = text[1] || text[0];
+            let command = text[0];
+            let id = `group${j}-macro${k}`;
+            let encodedValue = [actionTypeId, id].join(this.delimiter);
+            let listName = `${actionTypeName}: ${name}`;
+            let tooltip = `${command}`;
+            actions.push({ id, name, encodedValue, listName, tooltip });
+          }
 
-      // カーソルを末尾に移動させ、フォーカスを入力欄に移動
-      textarea.focus();
-      textarea.setSelectionRange(message.length, message.length);
+          if (!this.ignoreCategory) {
+            const groupData = { id: `group${j}`, type: "system-derived" };
+            this.addActions(actions, groupData);
+          } else {
+            this.addActions(actions, rootGroupData);
+          }
+        }
+      }
+    }
+
+    /**
+     * Build BCDice Replacement
+     * @private
+     */
+    async #buildReplacement() {
+      const actionTypeId = "bcdreplacement";
+      const actionTypeName = coreModule.api.Utils.i18n(
+        ACTION_TYPE[actionTypeId]
+      );
+      const groupId = ITEM_TYPE[actionTypeId]?.groupId;
+      const groupData = { id: groupId, type: "system" };
+
+      const replacements = this.bcdiceData.replacements
+        .split("\n")
+        .map((line) => `:${line}`);
+
+      // add actions
+      const actions = [];
+      for (let i = 0; i < replacements.length; i++) {
+        let name = replacements[i].replace(/^:/, "").replace(/=.*/, "");
+        let command = replacements[i];
+        let id = `replacement${i}`;
+        let encodedValue = [actionTypeId, id].join(this.delimiter);
+        let listName = `${actionTypeName}: ${name}`;
+        let tooltip = `${command}`;
+        actions.push({ id, name, encodedValue, listName, tooltip });
+      }
+      this.addActions(actions, groupData);
     }
   };
 });
