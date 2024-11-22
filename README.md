@@ -1,5 +1,8 @@
 # Token Action HUD BCDice
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X415YUSP)
+[![OFUSE](https://img.shields.io/badge/OFUSE-9cf.svg?style=for-the-badge)](https://ofuse.me/o?uid=81619)
+
 [BCDice for Foundry VTT](https://foundryvtt.com/packages/fvtt-bcdice-addon)用の「Token Action HUD」システムモジュール
 
 Token Action HUD for [BCDice for Foundry VTT](https://foundryvtt.com/packages/fvtt-bcdice-addon) module
@@ -16,7 +19,7 @@ Token Action HUD for [BCDice for Foundry VTT](https://foundryvtt.com/packages/fv
 
 #### 動作
 BCDiceモジュールのマクロボタンが「コマンド一覧」に表示されます。
-- ボタン名は書式「Command Comment1 Comment2 ...」の「Comment1」になります（「Comment1」がない馬合、「Command」）。
+- ボタン名は書式「Command Comment1 Comment2 ...」の「Comment1」になります（「Comment1」がない場合、「Command」）。
 - ツールチップに「Command」が表示されます。
 - ボタンクリックで実行し、右クリックでチャット入力欄にコマンドを転記します。
 - デフォルトではBCDiceモジュールのカテゴリーに分けて表示しますが、設定でカテゴリーを無視してまとめて表示することも可能です。
