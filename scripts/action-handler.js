@@ -17,7 +17,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */ a;
     async buildSystemActions() {
       // Set actor and token variables
-      this.actorType = this.actor?.type;
+      const characterActors = this.actors.filter(
+        (actor) => actor.type === "character"
+      );
+      if (characterActors.length === 0) return; // If no characters selected, do nothing.
+      this.actor = characterActors[0];
+      this.actorType = this.actor.type;
 
       // Settings
       this.ignoreCategory = Utils.getSetting("ignoreCategory");
@@ -29,8 +34,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Set items variable
       if (this.actor) {
+        let items = this.actor.items;
+        items = coreModule.api.Utils.sortItemsByName(items);
+        this.items = items;
       }
 
+      // The original logic already works well for a single character context.
       if (this.actorType === "character") {
         this.#buildCharacterActions();
       } else if (!this.actor) {
