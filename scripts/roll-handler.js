@@ -13,7 +13,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {string} encodedValue The encoded value
      */
     async handleActionClick(event, encodedValue) {
-      const [actionTypeId, actionId] = encodedValue.split("|");
+      const [actionTypeId, actionId] = encodedValue.split(this.delimiter);
       const knownCharacters = ["character"];
 
       // If single actor is selected
@@ -28,7 +28,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         return;
       }
 
-      const controlledTokens = canvas.tokens.controlled.filter((token) =>
+      const controlledTokens = (this.tokens ?? []).filter((token) =>
         knownCharacters.includes(token.actor?.type)
       );
 
@@ -88,7 +88,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {string} actionId The action id
      */
     #handleMacroAction(event, actor, actionId) {
-      const isRightClick = this.isRightClick(event);
+      const isRightClick = event.button === 2;
       if (!isRightClick) {
         game.modules
           .get("fvtt-bcdice-addon")
@@ -110,7 +110,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {string} actionId The action id
      */
     #handleReplacementAction(event, actor, actionId) {
-      const isRightClick = this.isRightClick(event);
+      const isRightClick = event.button === 2;
       if (!isRightClick) {
         let message = `/bcd ${actionId.replace(/=.*/, "")}`;
         let textarea = ui.chat.element.find("textarea")[0];

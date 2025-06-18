@@ -15,9 +15,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @override
      * @param {array} groupIds
      */ a;
-    async buildSystemActions(groupIds) {
+    async buildSystemActions() {
       // Set actor and token variables
-      this.actors = !this.actor ? this._getActors() : [this.actor];
       this.actorType = this.actor?.type;
 
       // Settings
@@ -30,9 +29,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Set items variable
       if (this.actor) {
-        let items = this.actor.items;
-        items = coreModule.api.Utils.sortItemsByName(items);
-        this.items = items;
       }
 
       if (this.actorType === "character") {
