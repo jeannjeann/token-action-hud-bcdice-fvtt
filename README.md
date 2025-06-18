@@ -58,5 +58,12 @@ This Foundry VTT module is licensed under a [Creative Commons Attribution 4.0 In
 
 # CHANGELOG
 
+## 1.1.0
+- Supported Foundry VTT v12 and v13
+- Supported BCDice for Foundry VTT v4.4.1
+- Token Action HUD Core v2.0.x compatible (don't work with v1.5.x)
+- bug fix
+
 ## 1.0.0
+- Token Action HUD Core v1.5.x compatible (don't work with v2.0.x)
 - first release

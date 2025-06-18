@@ -95,7 +95,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           .api.customCommand("/bcd", "", `${actionId}`);
       } else {
         let message = `/bcd ${actionId}`;
-        let textarea = ui.chat.element.find("textarea")[0];
+        const textarea = document.getElementById("chat-message");
+        if (!textarea) return;
         textarea.value = message;
         textarea.focus();
         textarea.setSelectionRange(message.length, message.length);
@@ -113,13 +114,15 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       const isRightClick = event.button === 2;
       if (!isRightClick) {
         let message = `/bcd ${actionId.replace(/=.*/, "")}`;
-        let textarea = ui.chat.element.find("textarea")[0];
+        const textarea = document.getElementById("chat-message");
+        if (!textarea) return;
         textarea.value = message;
         textarea.focus();
         textarea.setSelectionRange(message.length, message.length);
       } else {
         let message = `/bcd ${actionId}`;
-        let textarea = ui.chat.element.find("textarea")[0];
+        const textarea = document.getElementById("chat-message");
+        if (!textarea) return;
         textarea.value = message;
         textarea.focus();
         textarea.setSelectionRange(message.length, message.length);
